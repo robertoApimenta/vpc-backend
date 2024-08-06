@@ -12,15 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const users_1 = __importDefault(require("../models/users"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const users_1 = __importDefault(require("../models/users"));
+const leCuponUserServices_1 = __importDefault(require("./leCuponUserServices"));
 class UserService {
-    createUser(fullName, email, cpf, password) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const user = yield users_1.default.create({ fullName, email, cpf, password });
-            return user;
-        });
-    }
     getAllUsers() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield users_1.default.findAll();
@@ -39,6 +34,19 @@ class UserService {
     getUserByEmail(email) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield users_1.default.findOne({ where: { email } });
+        });
+    }
+    createUser(fullName, email, cpf, password, insurance) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const userDataLeCupon = {
+                name: fullName,
+                email,
+                cpf,
+                password,
+            };
+            const userLeCupon = yield leCuponUserServices_1.default.createUserOnLecupon(userDataLeCupon);
+            const user = yield users_1.default.create({ id: userLeCupon.id.toString(), fullName, email, cpf, password, insurance });
+            return user;
         });
     }
     validateUser(credential, password) {

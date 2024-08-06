@@ -18,13 +18,24 @@ const secretKey = process.env.JWT_SECRET || 'default_secret_key';
 class UserController {
     createUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { fullName, email, cpf, password } = req.body;
+            const { fullName, email, cpf, password, insurance } = req.body;
+            if (!fullName || !email || !cpf || !password || !insurance) {
+                return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
+            }
+            const cpfExists = yield userServices_1.default.getUserByCpf(cpf);
+            if (cpfExists) {
+                return res.status(400).json({ message: 'CPF já cadastrado.' });
+            }
+            const emailExists = yield userServices_1.default.getUserByEmail(email);
+            if (emailExists) {
+                return res.status(400).json({ message: 'Email já cadastrado.' });
+            }
             try {
-                const user = yield userServices_1.default.createUser(fullName, email, cpf, password);
-                res.status(201).json(user);
+                const user = yield userServices_1.default.createUser(fullName, email, cpf, password, insurance);
+                return res.status(201).json(user);
             }
             catch (error) {
-                res.status(500).json({ message: 'Erro ao criar usuário', error });
+                return res.status(500).json({ message: 'Erro ao criar usuário.', error });
             }
         });
     }
