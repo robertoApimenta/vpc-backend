@@ -6,14 +6,26 @@ const secretKey = process.env.JWT_SECRET || 'default_secret_key';
 
 class UserController {
     async createUser(req: Request, res: Response) {
-
         const { fullName, email, cpf, password, insurance } = req.body;
+        if (!fullName || !email || !cpf || !password || !insurance) {
+            return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
+        }
+
+        const cpfExists = await UserService.getUserByCpf(cpf);
+        if (cpfExists) {
+            return res.status(400).json({ message: 'CPF já cadastrado.' });
+        }
+
+        const emailExists = await UserService.getUserByEmail(email);
+        if (emailExists) {
+            return res.status(400).json({ message: 'Email já cadastrado.' });
+        }
 
         try {
             const user = await UserService.createUser(fullName, email, cpf, password, insurance);
-            res.status(201).json(user);
+            return res.status(201).json(user);
         } catch (error) {
-            res.status(500).json({ message: 'Erro ao criar usuário', error });
+            return res.status(500).json({ message: 'Erro ao criar usuário.', error });
         }
     }
 

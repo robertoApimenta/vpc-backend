@@ -1,9 +1,12 @@
 import express from 'express';
-import indexRouter from './routes/index';
+import dotenv from 'dotenv';
 import cors from 'cors';
+import indexRouter from './routes/index';
+
+dotenv.config();
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 
 const corsOptions = {
     origin: 'http://localhost:8080',

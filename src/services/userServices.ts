@@ -1,12 +1,9 @@
-import User, { UserAttributes } from '../models/users';
 import bcrypt from 'bcrypt';
+import User, { UserAttributes } from '../models/users';
+
+import LecuponServiceUserServices from './leCuponUserServices';
 
 class UserService {
-
-    async createUser(fullName: string, email: string, cpf: string, password: string, insurance: number) {
-        const user = await User.create({ fullName, email, cpf, password, insurance });
-        return user;
-    }
 
     async getAllUsers() {
         return await User.findAll();
@@ -22,6 +19,21 @@ class UserService {
 
     async getUserByEmail(email: string) {
         return await User.findOne({ where: { email } });
+    }
+
+    async createUser(fullName: string, email: string, cpf: string, password: string, insurance: number) {
+
+        const userDataLeCupon = {
+            name: fullName,
+            email,
+            cpf,
+            password,
+        };
+
+        const userLeCupon = await LecuponServiceUserServices.createUserOnLecupon(userDataLeCupon);
+
+        const user = await User.create({ id: userLeCupon.id.toString(), fullName, email, cpf, password, insurance });
+        return user;
     }
 
     async validateUser(credential: string, password: string) {
