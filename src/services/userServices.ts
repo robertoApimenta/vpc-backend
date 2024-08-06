@@ -3,8 +3,8 @@ import bcrypt from 'bcrypt';
 
 class UserService {
 
-    async createUser(fullName: string, email: string, cpf: string, password: string) {
-        const user = await User.create({ fullName, email, cpf, password });
+    async createUser(fullName: string, email: string, cpf: string, password: string, insurance: number) {
+        const user = await User.create({ fullName, email, cpf, password, insurance });
         return user;
     }
 

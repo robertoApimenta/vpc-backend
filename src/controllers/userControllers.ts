@@ -7,10 +7,10 @@ const secretKey = process.env.JWT_SECRET || 'default_secret_key';
 class UserController {
     async createUser(req: Request, res: Response) {
 
-        const { fullName, email, cpf, password } = req.body;
+        const { fullName, email, cpf, password, insurance } = req.body;
 
         try {
-            const user = await UserService.createUser(fullName, email, cpf, password);
+            const user = await UserService.createUser(fullName, email, cpf, password, insurance);
             res.status(201).json(user);
         } catch (error) {
             res.status(500).json({ message: 'Erro ao criar usuário', error });
