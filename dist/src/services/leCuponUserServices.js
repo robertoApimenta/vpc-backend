@@ -45,12 +45,13 @@ class LecuponServiceUserServices {
                 yield this.authenticate();
             }
             try {
-                const response = yield axiosConfig_1.default.post('/client/v2/businesses/1/users', userData, {
+                const response = yield axiosConfig_1.default.post('/client/v2/businesses/1206/users', userData, {
                     headers: {
                         'X-ClientEmployee-Token': this.authToken,
                         'X-ClientEmployee-Email': email,
                     },
                 });
+                console.log('response ', response.data);
                 return response.data;
             }
             catch (error) {
