@@ -44,12 +44,13 @@ class LecuponServiceUserServices {
         }
 
         try {
-            const response = await axiosInstance.post<LecuponUser>('/client/v2/businesses/1/users', userData, {
+            const response = await axiosInstance.post<LecuponUser>('/client/v2/businesses/1206/users', userData, {
                 headers: {
                     'X-ClientEmployee-Token': this.authToken as string,
                     'X-ClientEmployee-Email': email as string,
                 },
             });
+            console.log('response ', response.data)
             return response.data;
         } catch (error) {
             console.error('Erro ao criar usuário na API Lecupon:', error);

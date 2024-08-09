@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://api-hmg.lecupon.com/',
+    baseURL: 'https://api.lecupon.com/',
     headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
