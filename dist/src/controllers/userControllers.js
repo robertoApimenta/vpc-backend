@@ -18,8 +18,8 @@ const secretKey = process.env.JWT_SECRET || 'default_secret_key';
 class UserController {
     createUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { fullName, email, cpf, password, insurance } = req.body;
-            if (!fullName || !email || !cpf || !password || !insurance) {
+            const { fullName, email, cpf, phone, password, insurance } = req.body;
+            if (!fullName || !email || !cpf || !phone || !password || !insurance) {
                 return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
             }
             const cpfExists = yield userServices_1.default.getUserByCpf(cpf);
@@ -31,7 +31,7 @@ class UserController {
                 return res.status(400).json({ message: 'Email já cadastrado.' });
             }
             try {
-                const user = yield userServices_1.default.createUser(fullName, email, cpf, password, insurance);
+                const user = yield userServices_1.default.createUser(fullName, email, cpf, phone, password, insurance);
                 return res.status(201).json(user);
             }
             catch (error) {

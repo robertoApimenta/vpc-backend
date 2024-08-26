@@ -36,16 +36,17 @@ class UserService {
             return yield users_1.default.findOne({ where: { email } });
         });
     }
-    createUser(fullName, email, cpf, password, insurance) {
+    createUser(fullName, email, cpf, phone, password, insurance) {
         return __awaiter(this, void 0, void 0, function* () {
             const userDataLeCupon = {
                 name: fullName,
                 email,
                 cpf,
+                cellphone: phone,
                 password,
             };
             const userLeCupon = yield leCuponUserServices_1.default.createUserOnLecupon(userDataLeCupon);
-            const user = yield users_1.default.create({ id: userLeCupon.id.toString(), fullName, email, cpf, password, insurance });
+            const user = yield users_1.default.create({ id: userLeCupon.id.toString(), fullName, email, cpf, phone, password, insurance });
             return user;
         });
     }

@@ -21,18 +21,19 @@ class UserService {
         return await User.findOne({ where: { email } });
     }
 
-    async createUser(fullName: string, email: string, cpf: string, password: string, insurance: number) {
+    async createUser(fullName: string, email: string, cpf: string, phone: string, password: string, insurance: number) {
 
         const userDataLeCupon = {
             name: fullName,
             email,
             cpf,
+            cellphone: phone,
             password,
         };
 
         const userLeCupon = await LecuponServiceUserServices.createUserOnLecupon(userDataLeCupon);
 
-        const user = await User.create({ id: userLeCupon.id.toString(), fullName, email, cpf, password, insurance });
+        const user = await User.create({ id: userLeCupon.id.toString(), fullName, email, cpf, phone, password, insurance });
         return user;
     }
 

@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "postgres",
-    "password": "Vaipraconta!#",
-    "database": "",
-    "host": "vaipraconta.cfm4ams0261o.us-east-1.rds.amazonaws.com",
+    "password": "l1IYOR9AolHJ1o3pSc6K",
+    "database": "postgres",
+    "host": "vaiparacontaprod01.cfm4ams0261o.us-east-1.rds.amazonaws.com",
     "dialect": "postgres"
   },
   "test": {
