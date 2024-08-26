@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 
 const sequelize = new Sequelize('postgres', 'postgres', 'l1IYOR9AolHJ1o3pSc6K', {
-    host: 'vaiparacontaprod01.cfm4ams0261o.us-east-1.rds.amazonaws.com/',
+    host: '54.157.133.160',
     dialect: 'postgres',
 });
 
